@@ -41,8 +41,9 @@ class MeetingsController < ApplicationController
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
   def update
+    @meeting.attributes = meeting_params
     respond_to do |format|
-      if @meeting.update(meeting_params)
+      if @meeting.valid? and @meeting.save
         format.html { redirect_to @room, notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else

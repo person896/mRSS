@@ -122,7 +122,7 @@
                             title: '<%= event.name %>',
                             start: new Date(<%= event.date.year %>, <%= event.date.month - 1 %>, <%= event.date.day %>, <%= event.time_start.hour %>, <%=event.time_start.min %>),
                             end: new Date(<%= event.date.year %>, <%= event.date.month - 1  %>, <%= event.date.day %>, <%= event.time_end.hour %>, <%= event.time_end.min %>),
-                            className: ["event", "<%= event.color %>"],
+                            className: ["event", "bg-color-blue txt-color-white"],
                             description: '<%= event.description.inspect.html_safe %>',
                             url: '<%= room_meeting_path(event.room, event) %>',
                             icon: 'fa-check'
