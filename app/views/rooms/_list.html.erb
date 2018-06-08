@@ -1,0 +1,14 @@
+<table style="width: 100%" class="table  table-responsive" id="rooms_table">
+  <thead>
+  <tr>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @rooms.each do |room| %>
+      <tr data-open-url="<%= room_path(room) %>">
+        <td><%= room.name %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

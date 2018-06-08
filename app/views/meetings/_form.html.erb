@@ -1,0 +1,61 @@
+<fieldset style="height: 90vh">
+  <legend></legend>
+  <%= form_for([@room, meeting], html: { class: 'form-horizontal'}) do |f| %>
+
+      <% if meeting.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+
+            <ul>
+              <% meeting.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.label 'Title', class: 'col-md-2 control-label' %>
+        <div class="col-md-9">
+          <%= f.hidden_field :room_id  %>
+          <%= f.text_field :name , class: 'form-control' %>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <%= f.label 'Description' , class: 'col-md-2 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_area :description , class: 'form-control ck-editor' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Date', class: 'col-md-2 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_field :date , class: 'form-control date_picker' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Time start', class: 'col-md-2 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_field :time_start , value: (@meeting.time_start || Time.now).strftime('%I:%M%p'), class: 'form-control timepicker' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Time end' , class: 'col-md-2 control-label' %>
+        <div class="col-md-9">
+          <%= f.text_field :time_end , value: (@meeting.time_end || Time.now).strftime('%I:%M%p'), class: 'form-control timepicker' %>
+        </div>
+      </div>
+
+      <div class="form-group" >
+        <div class="col-md-11">
+          <%= link_to 'Cancel', room_path(@room), class: 'btn btn-warning pull-right' %>
+          <%= f.submit 'Save', class: 'btn btn-success pull-right' %>
+        </div>
+      </div>
+  <% end %>
+</fieldset>

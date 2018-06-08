@@ -1,0 +1,69 @@
+var config = {
+    toolbar:
+        [
+            ['Link', 'Unlink'],
+            [ 'Save', '-', 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord',
+                '-', 'Undo', 'Redo' ],
+            [ 'Bold', 'Italic', 'Underline',
+                '-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            '/',
+            ['NumberedList', 'BulletedList', '-' , 'Outdent', 'Indent', '-', 'Blockquote'],
+            ['Image', 'Table', 'HorizontalRule' , 'SpecialChar'],
+            ['Styles', 'Format']
+        ]
+};
+$('.ck-editor').ckeditor(config);
+
+// $('a').attr('data-turbolinks', "false");
+// initialize persistent state
+
+$('form').on('cocoon:after-insert', function() {
+    $('.nested-fields').find('.date_picker:last').datepicker({
+        dateFormat: 'yy-mm-dd',
+        "prevText": '<i class="fa fa-chevron-left"></i>',
+        "nextText": '<i class="fa fa-chevron-right"></i>'
+    });
+});
+$('.birthday').datepicker({
+    dateFormat: 'yy-mm-dd',
+    "prevText":'<i class="fa fa-chevron-left"></i>',
+    "nextText":'<i class="fa fa-chevron-right"></i>',
+    changeMonth: true,
+    changeYear: true,
+    yearRange: "-100:+0"
+});
+
+$('.date_picker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    "prevText":'<i class="fa fa-chevron-left"></i>',
+    "nextText":'<i class="fa fa-chevron-right"></i>'
+});
+$('.date_picker_month_year').datepicker({
+    changeMonth: true,
+    changeYear: true,
+    showButtonPanel: true,
+    dateFormat: 'mm yy',
+    onClose: function(dateText, inst) {
+        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+    },
+    "prevText":'<i class="fa fa-chevron-left"></i>',
+    "nextText":'<i class="fa fa-chevron-right"></i>'
+});
+
+$( "select").css('width', '100%')
+$( "select").css('padding', '0')
+$( "select" ).select2({
+    theme: "bootstrap"
+});
+$( "label select" ).select2("destroy");
+$( ".fb-select.form-group select" ).select2("destroy");
+
+$('.timepicker').datetimepicker({
+    format: 'LT'
+});
+
+$('.modal-trigger').on('click', function(e) {
+    e.preventDefault();
+    modal_id = $(this).data('modal')
+    $(modal_id).modal('show');
+})

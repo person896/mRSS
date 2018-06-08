@@ -1,0 +1,36 @@
+application_name:
+  default: "Synergie Care"
+phone_number:
+  default: ""
+company_address:
+  default: ""
+n_employeur:
+  default: ''
+email_from:
+  default: "from@example.com"
+whitelist_ip:
+  default: '*.*.*.*'
+blacklist_ip:
+  default: ''
+user_default_state:
+  default: 'false'
+remember_for:
+  default: 2
+expire_after:
+  default: 180
+timeout_in:
+  default: 15
+maximum_attempts:
+  default: 5
+unlock_in:
+  default: 60
+format_date:
+  default: "%d/%m/%Y"
+tva_location:
+  default: 19
+tva_vente:
+  default: 7
+montant_timbre:
+  default: 500
+google_map_key:
+  default: "AIzaSyBgNAFiZb48uAk4jb4U0gRSeuHQS9EuCyk"

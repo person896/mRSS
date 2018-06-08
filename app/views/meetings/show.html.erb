@@ -1,0 +1,33 @@
+
+<p>
+  <strong>Name:</strong>
+  <%= @meeting.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @meeting.description.to_s.html_safe %>
+</p>
+
+<p>
+  <strong>Room:</strong>
+  <%= @meeting.room %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @meeting.date %>
+</p>
+
+<p>
+  <strong>Time start:</strong>
+  <%= @meeting.time_start.strftime('%I:%M %p') %>
+</p>
+
+<p>
+  <strong>Time end:</strong>
+  <%= @meeting.time_end.strftime('%I:%M %p') %>
+</p>
+
+<%= link_to 'Edit', edit_room_meeting_path(@room, @meeting) %> |
+<%= link_to 'Back', room_path(@room) %>

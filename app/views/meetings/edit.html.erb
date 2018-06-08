@@ -1,0 +1,13 @@
+<section id="widget-grid" class="users_list">
+  <div class="row">
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <%= render partial: 'form',
+                 layout: 'shared/smart_widget_wrapper',
+                 locals: {
+                     meeting: @meeting,
+                     wid_id: 'meeting',
+                     wid_title: 'Edit Meeting'
+                 } %>
+    </article>
+  </div>
+</section>

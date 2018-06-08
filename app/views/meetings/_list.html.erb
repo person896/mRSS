@@ -1,0 +1,172 @@
+<section id="widget-grid" class="event_account">
+  <div class="row">
+    <article class="col-xs-12 col-sm-12 ">
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+
+          <!-- new widget -->
+          <div class="jarviswidget jarviswidget-color-blueDark"
+               data-widget-editbutton="false"
+               data-widget-deletebutton="false"
+
+          >
+
+            <!-- widget options:
+            usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+            data-widget-colorbutton="false"
+            data-widget-editbutton="false"
+            data-widget-togglebutton="false"
+
+            data-widget-fullscreenbutton="false"
+            data-widget-custombutton="false"
+            data-widget-collapsed="true"
+            data-widget-sortable="false"
+
+            -->
+            <header>
+              <span class="widget-icon"> <i class="fa fa-calendar"></i> </span>
+              <h2> <%= @room.name.capitalize %> </h2>
+
+              <div class="widget-toolbar">
+                <!-- add: non-hidden - to disable auto hide -->
+                <div class="btn-group">
+                  <button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
+                    Visualisation <i class="fa fa-caret-down"></i>
+                  </button>
+                  <ul class="dropdown-menu js-status-update pull-right">
+                    <li>
+                      <a href="javascript:void(0);" id="mt">Month</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" id="ag">Agenda</a>
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" id="td">Today</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <% if @room %>
+                  <div class="widget-toolbar" role="menu">
+                    <%= link_to 'New meeting', new_room_meeting_path(@room), class: 'btn btn-xs btn-primary fa fa-calendar' %>
+                  </div>
+              <% end %>
+
+            </header>
+
+            <!-- widget div-->
+            <div>
+
+              <div class="widget-body no-padding">
+                <!-- content goes here -->
+                <div class="widget-body-toolbar">
+
+                  <div id="calendar-buttons">
+
+                    <div class="btn-group">
+                      <% if @room %>
+                          <a href="<%= room_path(@room, :start_date=> @date.beginning_of_month.prev_month ) %>" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
+                          <a href="<%= room_path(@room, :start_date=> @date.beginning_of_month.next_month ) %>" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
+
+                      <% else %>
+                          <a href="<%= meetings_path(:start_date=> @date.beginning_of_month.prev_month ) %>" class="btn btn-default btn-xs" id="btn-prev"><i class="fa fa-chevron-left"></i></a>
+                          <a href="<%= meetings_path(:start_date=> @date.beginning_of_month.next_month ) %>" class="btn btn-default btn-xs" id="btn-next"><i class="fa fa-chevron-right"></i></a>
+
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div id="calendar"></div>
+
+                <!-- end content -->
+              </div>
+
+            </div>
+            <!-- end widget div -->
+          </div>
+          <!-- end widget -->
+
+        </div>
+        <script>
+            $(document).ready(function() {
+                var date = new Date("<%= @date.to_s %>");
+
+                var hdr = {
+                    left: 'title',
+                    center: 'month,agendaWeek,agendaDay',
+                    right: 'prev,today,next'
+                };
+                $('#calendar').fullCalendar({
+                    defaultDate: moment('<%= @date.to_s %>'),
+                    header: hdr,
+                    editable: false,
+                    droppable: false, // this allows things to be dropped onto the calendar !!!
+                    select: function (start, end, allDay) {
+                        var title = prompt('event Title:');
+                        if (title) {
+                            calendar.fullCalendar('renderevent', {
+                                    title: title,
+                                    start: start,
+                                    end: end,
+                                    allDay: allDay
+                                }, true // make the event "stick"
+                            );
+                        }
+                        calendar.fullCalendar('unselect');
+                    },
+                    events: [
+                        <% @meetings.each do |event| %>
+                        {
+                            id: '<%= event.id %>',
+                            title: '<%= event.name %>',
+                            start: new Date(<%= event.date.year %>, <%= event.date.month - 1 %>, <%= event.date.day %>, <%= event.time_start.hour %>, <%=event.time_start.min %>),
+                            end: new Date(<%= event.date.year %>, <%= event.date.month - 1  %>, <%= event.date.day %>, <%= event.time_end.hour %>, <%= event.time_end.min %>),
+                            className: ["event", "<%= event.color %>"],
+                            description: '<%= event.description.inspect.html_safe %>',
+                            url: '<%= room_meeting_path(event.room, event) %>',
+                            icon: 'fa-check'
+                        },
+                        <% end %>
+                    ],
+
+                    eventRender: function (event, element, icon) {
+                        if (!event.description == "") {
+                            element.find('.fc-event-title').append("<br/><span class='ultra-light'>" + event.description +
+                                "</span>");
+                        }
+                        if (!event.icon == "") {
+                            element.find('.fc-event-title').append("<i class='air air-top-right fa " + event.icon +
+                                " '></i>");
+                        }
+                    },
+
+                    windowResize: function (event, ui) {
+                        $('#calendar').fullCalendar('render');
+                    }
+                });
+                $('#calendar').fullCalendar('changeView', 'agendaDay');
+                /* hide default buttons */
+                $('.fc-header-right, .fc-header-center, .fc-today-button, .fc-button-group').hide();
+
+
+
+                $('#mt').click(function () {
+                    $('#calendar').fullCalendar('changeView', 'month');
+                });
+
+                $('#ag').click(function () {
+                    $('#calendar').fullCalendar('changeView', 'agendaWeek');
+                });
+
+                $('#td').click(function () {
+                    $('#calendar').fullCalendar('changeView', 'agendaDay');
+                });
+            });
+            setTimeout(function(){window.location.reload()}, 1000 * 60 * 10)
+
+        </script>
+      </div>
+    </article>
+  </div>
+</section>
