@@ -4,7 +4,7 @@ This documentation describes how to set up the application, its components, how
 to deploy it, and some internal information.
 
 ## Set up
-This application needs ruby version 2.3.1. The version is set at the top of the
+This application needs ruby version 2.3.4. The version is set at the top of the
 Gemfile, in a way similar to Heroku. Most ruby version managers and Heroku
 recognize this syntax and will select the right version, or ask to install it.
 To find more about ruby, go [here](https://www.ruby-lang.org/es/)
@@ -25,31 +25,7 @@ After that, your application is ready to go. To run it, you have to execute:
 
     rails s
 
-Point your browser to [http://localhost:3000/](http://localhost:3000/) and enter
-these credentials:
-
-    E-mail: smartadmin@example.org
-    Password: smartadmin
-
-## Components
-As it is said in the set up section, this application is based on ruby 2.3.1 and
-Rails 5.0.1. This application also uses the following gems:
-
-### Devise
-This application is bundled with the [devise](https://github.com/plataformatec/devise) gem for
-authentication. This gem has been included as it is one of the most popular
-choices for authentication. Devise's log in page has been re-skinned to match
-SmartAdmin own log in page, and to sirve as an example for devise users.
-
-### Gettext
-This application is translated using gettext. To do so, it includes the
-[gettext_i18n_rails](https://github.com/grosser/gettext_i18n_rails) gem. You can
-switch the language using the top-right selector, once you log in. This gem as
-been included as PO files are quite popular among translators.
-
-### CKEditor
-This application also includes a [CKEditor integration](https://github.com/galetahub/ckeditor). It
-uses the most recent version of CKEditor, which at this time is 4.5.11.
+Point your browser to [http://localhost:3000/](http://localhost:3000/) 
 
 ## Deployment instructions
 This application is Heroku-ready. To deploy it to heroku, you have to first set
