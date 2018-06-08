@@ -89,11 +89,9 @@ Use search to find needed section.
   * 'fixed-page-footer' - Fixes footer
   * 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
 -->
-<body class="<%= yield :body_class %> <%= Setting.theme.values.join(' ') %>">
+<body class="minified <%= yield :body_class %> <%= Setting.theme.values.join(' ') %>">
 
-<!-- HEADER -->
-<%= render partial: 'layouts/header' unless @lock_screen %>
-<!-- END HEADER -->
+
 
 <!-- Left panel : Navigation area -->
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->

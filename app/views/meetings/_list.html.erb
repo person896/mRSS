@@ -30,22 +30,7 @@
 
               <div class="widget-toolbar">
                 <!-- add: non-hidden - to disable auto hide -->
-                <div class="btn-group">
-                  <button class="btn dropdown-toggle btn-xs btn-default" data-toggle="dropdown">
-                    Visualisation <i class="fa fa-caret-down"></i>
-                  </button>
-                  <ul class="dropdown-menu js-status-update pull-right">
-                    <li>
-                      <a href="javascript:void(0);" id="mt">Month</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" id="ag">Agenda</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" id="td">Today</a>
-                    </li>
-                  </ul>
-                </div>
+
               </div>
               <% if @room %>
                   <div class="widget-toolbar" role="menu">
@@ -95,7 +80,6 @@
                 var hdr = {
                     left: 'title',
                     center: 'month,agendaWeek,agendaDay',
-                    right: 'prev,today,next'
                 };
                 $('#calendar').fullCalendar({
                     defaultDate: moment('<%= @date.to_s %>'),
@@ -147,7 +131,7 @@
                 });
                 $('#calendar').fullCalendar('changeView', 'agendaDay');
                 /* hide default buttons */
-                $('.fc-header-right, .fc-header-center, .fc-today-button, .fc-button-group').hide();
+                $('.fc-next-button, .fc-prev-button, .fc-header-right, .fc-today-button').hide();
 
 
 
