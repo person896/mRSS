@@ -1,5 +1,5 @@
-$(document).on('click', 'tbody tr td:not(:first)', function() {
-  var data = $(this).parent('tr').data('open-url');
+$(document).on('click', 'tbody tr', function() {
+  var data = $(this).data('open-url');
   if (data && data.trim().length) {
     window.location.href = data;
   }
