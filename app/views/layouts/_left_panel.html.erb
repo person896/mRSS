@@ -16,7 +16,7 @@
       </li>
       <% Room.all.each do |room| %>
           <li>
-            <a href="<%= room_path(room) %>" id="ul_admin"><i class="fa fa-lg fa-fw fa-arrow-right"></i> <span class="menu-item-parent"><%= room.name %></span></a>
+            <a href="<%= room_path(room) %>" id="ul_admin"><i class="fa fa-lg fa-fw fa-fa-fw <%= room.icon || 'fa-square' %>"></i> <span class="menu-item-parent"><%= room.name %></span></a>
           </li>
       <% end %>
     </ul>
