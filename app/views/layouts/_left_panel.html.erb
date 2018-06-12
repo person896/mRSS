@@ -12,13 +12,18 @@
 
     <ul>
       <li>
-        <a href="<%= rooms_path %>" id="ul_admin"><i class="fa fa-lg fa-fw fa-times-circle"></i> <span class="menu-item-parent">Rooms</span></a>
+        <a href="<%= new_room_path %>" id="ul_admin"><i class="fa fa-lg fa-fw fa-plus-circle"></i> <span class="menu-item-parent">New room</span></a>
       </li>
+      <% Room.all.each do |room| %>
+          <li>
+            <a href="<%= room_path(room) %>" id="ul_admin"><i class="fa fa-lg fa-fw fa-arrow-right"></i> <span class="menu-item-parent"><%= room.name %></span></a>
+          </li>
+      <% end %>
     </ul>
   </nav>
 
 
-			<span class="minifyme" data-action="minifyMenu">
+  <span class="minifyme" data-action="minifyMenu">
 				<i class="fa fa-arrow-circle-left hit"></i>
 			</span>
 

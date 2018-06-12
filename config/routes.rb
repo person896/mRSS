@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   get 'fetch/:action', controller: 'fetch'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'miscellaneous#blank_page'
+  root 'rooms#index'
   # Miscellaneous
   get 'miscellaneous/login',
       to: 'miscellaneous#login',
