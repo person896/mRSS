@@ -1,8 +1,11 @@
 # update centos
 
 yum update
+
 yum install -y epel-release yum-utils
+
 yum-config-manager --enable epel
+
 yum clean all && sudo yum update -y
 
 # install ruby
@@ -15,6 +18,7 @@ usermod -a -G rvm `whoami'
 export PATH="$PATH:$HOME/.rvm/bin"
 
 rvm install ruby-2.3.6
+
 rvm install ruby-devel-2.3.6
 
 bash -l -c "rvm use 2.3.6 --default"
@@ -51,22 +55,27 @@ nano /etc/yum.repos.d/nginx.repo
 # then enter this below and save
 
 [nginx]
+
 name=nginx repo
+
 baseurl=http://nginx.org/packages/mainline/centos/7/$basearch/
+
 gpgcheck=0
+
 enabled=1
 
+# Update yum and install nginx
 yum update
 
 yum install -y nginx
 
 # install passenger phusion
 
-sudo yum install -y pygpgme curl
+yum install -y pygpgme curl
 
-sudo curl --fail -sSLo /etc/yum.repos.d/passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
+curl --fail -sSLo /etc/yum.repos.d/passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
 
-sudo yum install -y nginx passenger || sudo yum-config-manager --enable cr && sudo yum install -y nginx passenger
+yum install -y nginx passenger || sudo yum-config-manager --enable cr && sudo yum install -y nginx passenger
 
 # then go edit passenger.conf
 nano /etc/nginx/conf.d/passenger.conf
