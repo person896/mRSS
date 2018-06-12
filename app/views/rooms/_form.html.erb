@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-md-8">
-          <%= form.select :icon, options_for_select(Room::ICONS, selected: form.object.icon), class: 'form-control'%>
+          <%= f.select :icon, options_for_select(Room::ICONS, selected: f.object.icon), class: 'form-control'%>
 
           <script>
               $(function(){
