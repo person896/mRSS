@@ -22,11 +22,12 @@ bash -l -c "rvm use 2.3.6 --default"
 # be sure git is installed
 yum install git
 
-# -go to /var/www and from there 
+# go to /var/www and from there 
 cd /var/www/
+
 git clone https://github.com/MicroHealthLLC/mRSS
 
-# go to the directory 
+# go to the cloned directory 
 cd /var/www/mRSS 
 
 gem install rails
@@ -43,7 +44,7 @@ rails db:setup
 
 rake assets:precompile
 
-# Configure Nginx repo for CentOS 7ls
+# Configure Nginx repo for CentOS 7
 
 nano /etc/yum.repos.d/nginx.repo
 
