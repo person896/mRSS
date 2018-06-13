@@ -15,7 +15,7 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/new
   def new
-    @meeting = Meeting.new room_id: @room.id
+    @meeting = Meeting.new room_id: @room.id, date: Date.today
   end
 
   # GET /meetings/1/edit
