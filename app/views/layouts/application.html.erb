@@ -95,6 +95,7 @@ Use search to find needed section.
 
 <!-- Left panel : Navigation area -->
 <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<%= render partial: 'layouts/header' unless @lock_screen %>
 <%= render partial: 'layouts/left_panel' if !@simulate_no_user %>
 <!-- END NAVIGATION -->
 
