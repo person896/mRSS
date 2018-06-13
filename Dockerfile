@@ -9,6 +9,7 @@ RUN yum clean all && yum update -y
 RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
 RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
 RUN export PATH="$PATH:$HOME/.rvm/bin"
+RUN source /usr/local/rvm/scripts/rvm
 RUN rvm install ruby-2.3.6
 RUN rvm install ruby-devel-2.3.6
 RUN bash -l -c "rvm use 2.3.6 --default"
