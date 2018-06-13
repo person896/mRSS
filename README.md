@@ -1,64 +1,91 @@
-# README
+# update centos
 
-This documentation describes how to set up the application, its components, how
-to deploy it, and some internal information.
+yum update
 
-## Set up
-This application needs ruby version 2.3.4. The version is set at the top of the
-Gemfile, in a way similar to Heroku. Most ruby version managers and Heroku
-recognize this syntax and will select the right version, or ask to install it.
-To find more about ruby, go [here](https://www.ruby-lang.org/es/)
+yum install -y epel-release yum-utils
 
-This application is also based on the latest stable Rails version, which is, at
-this moment, 5.0.1. To find more about Rails, go [here](http://rubyonrails.org/)
+yum-config-manager --enable epel
 
-First, you have to install all the dependencies. To do so, run:
+yum clean all && sudo yum update -y
 
-    gem install bundler
-    bundle install
+# install ruby
 
-After that, you have to set up the database. This can be done by running:
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
+\curl -sSL https://get.rvm.io | bash -s stable --ruby 
 
-    rails db:setup
+usermod -a -G rvm `whoami'
 
-After that, your application is ready to go. To run it, you have to execute:
+export PATH="$PATH:$HOME/.rvm/bin"
 
-    rails s
+rvm install ruby-2.3.6
 
-Point your browser to [http://localhost:3000/](http://localhost:3000/) 
+rvm install ruby-devel-2.3.6
 
-## Deployment instructions
-This application is Heroku-ready. To deploy it to heroku, you have to first set
-up an application on Heroku, and add Heroku as a remote with this:
+bash -l -c "rvm use 2.3.6 --default"
 
-    heroku git:remote -a your-app-name
+# be sure git is installed
+yum install git
 
-After that, you only have to push it to Heroku:
+# go to /var/www and from there 
+cd /var/www/
 
-    git push heroku master
+git clone https://github.com/MicroHealthLLC/mRSS
 
-And set up the database
+# go to the cloned directory 
+cd /var/www/mRSS 
 
-    heroku run rake db:setup
+gem install rails
 
-## Internal information
+gem install bundler
 
-All the needed stylesheets are loaded, as standard, from
-```assets/stylesheets/application.css```. Almost all the javascripts are loaded,
-as standard, from ```assets/javascripts/application.js```, except for some that
-have to be loaded directly from the template, as they require some special
-attributes.
+yum install sqlite-devel
 
-Each page can accept a ```content_for :head``` block which you can use to insert
-styles and other types of content into the header HTML section. Also, each page
-can accept a ```content_for :scripts``` block where you can set page specific
-javascript. If none is set, the contents of
-```app/views/layouts/_scripts.html.erb``` are used as default.
+yum install nodejs
 
-Left side menu is dynamically generated. You can configure it by going to
-```ApplicationHelper#left_menu_content```
+bundle install
 
-The list of locales shown in the top-right selector can be also be configured by
-going to ```ApplicationHelper#locale_list```. The locale is set as a session,
-variable, named locale, which is set in ```HomeController#set_locale```
+rails db:setup 
+
+rake assets:precompile
+
+# Configure Nginx repo for CentOS 7
+
+nano /etc/yum.repos.d/nginx.repo
+
+# then enter this below and save
+
+[nginx]
+
+name=nginx repo
+
+baseurl=http://nginx.org/packages/mainline/centos/7/$basearch/
+
+gpgcheck=0
+
+enabled=1
+
+# Update yum and install nginx
+yum update
+
+yum install -y nginx
+
+# install passenger phusion
+
+yum install -y pygpgme curl
+
+curl --fail -sSLo /etc/yum.repos.d/passenger.repo https://oss-binaries.phusionpassenger.com/yum/definitions/el-passenger.repo
+
+yum install -y nginx passenger || sudo yum-config-manager --enable cr && sudo yum install -y nginx passenger
+
+# then go edit passenger.conf
+nano /etc/nginx/conf.d/passenger.conf
+
+# -where it says passenger_ruby change what you see there to what you see below.  If that doesn't work then do this "which passenger-config" to get the path to put next to passenger_ruby
+
+passenger_ruby /usr/local/rvm/gems/ruby-2.3.6/wrappers/ruby;
+--uncomment the line above and the line below that passenger_ruby
+
+# restart nginx
+service nginx restart
+
 
