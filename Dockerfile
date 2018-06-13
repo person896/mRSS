@@ -1,6 +1,6 @@
 FROM     drecom/centos-base:latest
 
-RUN cd/
+RUN cd /
 RUN yum update
 RUN yum install -y epel-release yum-utils
 RUN yum-config-manager --enable epel
