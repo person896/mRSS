@@ -1,7 +1,7 @@
 FROM     drecom/centos-base:latest
 
 RUN cd /
-RUN yum update
+RUN yum update -y
 RUN yum install -y epel-release yum-utils
 RUN yum-config-manager --enable epel
 RUN yum clean all && sudo yum update -y
@@ -28,7 +28,6 @@ RUN rake assets:precompile
 
 RUN cp /var/www/mRSS/nginx.repo
 
-RUN yum update
 RUN yum install -y nginx
 
 RUN yum install -y pygpgme curl
