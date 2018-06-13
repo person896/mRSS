@@ -23,6 +23,17 @@ rvm install ruby-devel-2.3.6
 
 bash -l -c "rvm use 2.3.6 --default"
 
+# Install Mysql
+yum install mariadb-server mariadb
+
+yum install mysql-devel
+
+mysql -u root -p
+
+create database mrss_prod CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+exit
+
 # be sure git is installed
 yum install git
 
@@ -31,14 +42,16 @@ cd /var/www/
 
 git clone https://github.com/MicroHealthLLC/mRSS
 
+nano /var/www/mRSS/config/database.yml
+
+--enter the password for mysql where it says password then save and exit
+
 # go to the cloned directory 
 cd /var/www/mRSS 
 
 gem install rails
 
 gem install bundler
-
-yum install sqlite-devel
 
 yum install nodejs
 
