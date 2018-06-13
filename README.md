@@ -96,6 +96,7 @@ nano /etc/nginx/conf.d/passenger.conf
 # -where it says passenger_ruby change what you see there to what you see below.  If that doesn't work then do this "which passenger-config" to get the path to put next to passenger_ruby
 
 passenger_ruby /usr/local/rvm/gems/ruby-2.3.6/wrappers/ruby;
+
 --uncomment the line above and the line below that passenger_ruby
 
 # restart nginx
