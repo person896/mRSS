@@ -107,13 +107,11 @@
                             start: new Date(<%= event.date.year %>, <%= event.date.month - 1 %>, <%= event.date.day %>, <%= event.time_start.hour %>, <%=event.time_start.min %>),
                             end: new Date(<%= event.date.year %>, <%= event.date.month - 1  %>, <%= event.date.day %>, <%= event.time_end.hour %>, <%= event.time_end.min %>),
                             className: ["event", "bg-color-blue txt-color-white"],
-                            description: '<%= event.description.inspect.html_safe %>',
-                            url: '<%= room_meeting_path(event.room, event) %>',
+                            url_link: '<%= room_meeting_path(event.room, event) %>',
                             icon: 'fa-check'
                         },
                         <% end %>
                     ],
-
                     eventRender: function (event, element, icon) {
                         if (!event.description == "") {
                             element.find('.fc-event-title').append("<br/><span class='ultra-light'>" + event.description +
@@ -123,6 +121,13 @@
                             element.find('.fc-event-title').append("<i class='air air-top-right fa " + event.icon +
                                 " '></i>");
                         }
+                    },
+                    eventClick: function(event, element, icon) {
+                        desc = $('#meeting_'+event.id).html();
+                        $('#content_dialog').html(desc)
+                        $('#dialog').attr('title',  event.title)
+                        $('#link_meeting').attr('href',  event.url_link)
+                        $('#dialog').dialog();
                     },
 
                     windowResize: function (event, ui) {
@@ -154,3 +159,14 @@
     </article>
   </div>
 </section>
+<div hidden>
+  <% @meetings.each do |meeting| %>
+      <span id="meeting_<%= meeting.id %>"><%= meeting.description.to_s.html_safe %></span>
+  <% end %>
+
+
+</div>
+<p id="dialog" title="">
+  <a id="link_meeting" href='' class="btn btn-default pull-right"> link</a>
+  <span id="content_dialog"></span>
+</p>
