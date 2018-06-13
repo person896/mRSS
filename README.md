@@ -97,8 +97,7 @@ nano /etc/nginx/conf.d/passenger.conf
 
 passenger_ruby /usr/local/rvm/gems/ruby-2.3.6/wrappers/ruby;
 
---uncomment the line above and the line below that passenger_ruby
-
+--uncomment the line above and the line below along with the passenger_ruby line e.g. remove this"#"
 # restart nginx
 service nginx restart
 
