@@ -64,5 +64,4 @@ gem 'will_paginate-bootstrap'
 gem 'jquery-datatables-rails'
 gem 'ajax-datatables-rails'
 
-# I18n
-gem 'gettext_i18n_rails'
+
