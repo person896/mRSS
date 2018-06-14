@@ -5,7 +5,7 @@ RUN yum update -y
 RUN yum install -y epel-release yum-utils
 RUN yum-config-manager --enable epel
 RUN yum clean all && yum update -y
-RUN sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
+RUN yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 
 RUN useradd -ms /bin/bash app
 USER app
