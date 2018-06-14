@@ -9,9 +9,12 @@ RUN yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-deve
 
 RUN useradd -ms /bin/bash app
 USER app
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
-RUN /bin/bash -l -c "\curl -sSL https://get.rvm.io | bash -s stable --ruby"
-RUN /bin/bash -l -c ". /etc/profile.d/rvm.sh && rvm install 2.3.3"
+RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+RUN /bin/bash -l -c "curl -L get.rvm.io | bash -s stable --rails"
+RUN /bin/bash -l -c "rvm install 2.1"
+RUN /bin/bash -l -c "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+
 RUN rvm install ruby-2.3.6
 RUN rvm install ruby-devel-2.3.6
 RUN /bin/bash -l -c "rvm use 2.3.6 --default"
