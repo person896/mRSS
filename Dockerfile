@@ -1,4 +1,4 @@
-FROM phusion/passenger-full
+FROM phusion/passenger-full:0.9.33
 
 RUN cd /
 RUN yum update -y
