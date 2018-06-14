@@ -1,4 +1,4 @@
-FROM     drecom/centos-base:latest
+FROM phusion/passenger-full
 
 RUN cd /
 RUN yum update -y
@@ -7,17 +7,12 @@ RUN yum-config-manager --enable epel
 RUN yum clean all && yum update -y
 RUN yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel libyaml-devel libffi-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel
 
-RUN useradd -ms /bin/bash app
-USER app
-RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
-RUN /bin/bash -l -c "curl -L get.rvm.io | bash -s stable --rails"
-RUN /bin/bash -l -c "rvm install 2.1"
-RUN /bin/bash -l -c "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
-RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
-
-RUN rvm install ruby-2.3.6
-RUN rvm install ruby-devel-2.3.6
-RUN /bin/bash -l -c "rvm use 2.3.6 --default"
+#RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 
+#RUN \curl -sSL https://get.rvm.io | bash -s stable --ruby
+#RUN export PATH="$PATH:$HOME/.rvm/bin"
+#RUN rvm install ruby-2.3.6
+#RUN rvm install ruby-devel-2.3.6
+#RUN bash -l -c "rvm use 2.3.6 --default"
 
 RUN yum install -y git
 
